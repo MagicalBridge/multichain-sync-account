@@ -27,8 +27,8 @@ const (
 var (
 	EthGasLimit          uint64 = 60000
 	TokenGasLimit        uint64 = 120000
-	maxFeePerGas                = "135177480"
-	maxPriorityFeePerGas        = "535177480"
+	maxFeePerGas                = "13517748000"
+	maxPriorityFeePerGas        = "53517748000"
 )
 
 func (bws *BusinessMiddleWireServices) BusinessRegister(ctx context.Context, request *dal_wallet_go.BusinessRegisterRequest) (*dal_wallet_go.BusinessRegisterResponse, error) {

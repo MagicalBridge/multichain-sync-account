@@ -17,16 +17,16 @@ import (
 
 const (
 	businessId = "1"
-	txId       = "f9cb8657-553b-4456-a6de-f021b949c692"
+	txId       = "f42ebac2-1b23-45d1-bac1-f1dda168a1c4"
 )
 
 func setupDb() *database.DB {
 	dbConfig := config.DBConfig{
 		Host:     "127.0.0.1",
 		Port:     5432,
-		Name:     "multichain",
-		User:     "postgres",
-		Password: "123456",
+		Name:     "postgres",
+		User:     "louis",
+		Password: "cpf1234",
 	}
 
 	newDB, _ := database.NewDB(context.Background(), dbConfig)

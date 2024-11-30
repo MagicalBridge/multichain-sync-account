@@ -3,8 +3,11 @@ package database
 import (
 	"context"
 	"fmt"
+	"gorm.io/gorm/logger"
+	"log"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/pkg/errors"
 	"gorm.io/driver/postgres"
@@ -42,9 +45,20 @@ func NewDB(ctx context.Context, dbConfig config.DBConfig) (*DB, error) {
 		dsn += fmt.Sprintf(" password=%s", dbConfig.Password)
 	}
 
+	newLogger := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+		logger.Config{
+			SlowThreshold:             time.Second,   // Slow SQL threshold
+			LogLevel:                  logger.Silent, // Log level
+			IgnoreRecordNotFoundError: true,          // Ignore ErrRecordNotFound error for logger
+			Colorful:                  false,         // Disable color
+		},
+	)
+
 	gormConfig := gorm.Config{
 		SkipDefaultTransaction: true,
 		CreateBatchSize:        3_000,
+		Logger:                 newLogger,
 	}
 
 	retryStrategy := &retry2.ExponentialStrategy{Min: 1000, Max: 20_000, MaxJitter: 250}

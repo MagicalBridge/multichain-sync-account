@@ -31,13 +31,14 @@ type Deposit struct {
 }
 
 func NewDeposit(cfg *config.Config, db *database.DB, rpcClient *rpcclient.WalletChainAccountClient, shutdown context.CancelCauseFunc) (*Deposit, error) {
-	dbLatestBlockHeader, err := db.Blocks.LatestBlocks()
-	if err != nil {
-		log.Error("get latest block from database fail")
-		return nil, err
-	}
+	//dbLatestBlockHeader, err := db.Blocks.LatestBlocks()
+	//if err != nil {
+	//	log.Error("get latest block from database fail")
+	//	return nil, err
+	//}
 	var fromHeader *rpcclient.BlockHeader
 
+	var dbLatestBlockHeader *rpcclient.BlockHeader = nil
 	if dbLatestBlockHeader != nil {
 		log.Info("sync bock", "number", dbLatestBlockHeader.Number, "hash", dbLatestBlockHeader.Hash)
 		fromHeader = dbLatestBlockHeader
